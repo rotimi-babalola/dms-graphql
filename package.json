@@ -2,8 +2,8 @@
   "name": "my-graphql-tutorial",
   "version": "1.0.0",
   "description": "A simple tutorial for GraphQL",
-  "main": "index.js",
   "scripts": {
+    "start": "babel-watch server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
