@@ -4,10 +4,14 @@ import {
   GraphQLObjectType,
   GraphQLNonNull,
   GraphQLList,
+  GraphQLInt,
 } from 'graphql';
+
+/* eslint no-underscore-dangle: 0 */
 
 import GraphQLDate from 'graphql-date';
 import DocumentType from './document';
+import DocumentResolver from '../../resolvers/document-resolver';
 
 export default new GraphQLObjectType({
   name: 'UserType',
@@ -35,6 +39,12 @@ export default new GraphQLObjectType({
     documents: {
       type: new GraphQLList(DocumentType),
       description: 'Documents owned by user',
+      resolve: obj => DocumentResolver.getDocumentsForUser(obj._id),
+    },
+    numberOfDocuments: {
+      type: GraphQLInt,
+      description: 'Total number of documents owned by user',
+      resolve: obj => DocumentResolver.countUserDocuments(obj._id),
     },
     createdAt: {
       type: GraphQLDate,

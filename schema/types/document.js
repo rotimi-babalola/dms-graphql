@@ -16,11 +16,11 @@ export default new GraphQLObjectType({
     },
     title: {
       type: new GraphQLNonNull(GraphQLString),
-      description: 'ID of user',
+      description: 'Title of document',
     },
     text: {
       type: GraphQLString,
-      description: 'ID of user',
+      description: 'Content of the document',
     },
     access: {
       type: AccessType,
@@ -28,15 +28,15 @@ export default new GraphQLObjectType({
     },
     owner: {
       type: new GraphQLNonNull(GraphQLString),
-      description: 'Owner of document',
+      description: 'ID of document\'s owner',
     },
     createdAt: {
       type: GraphQLDate,
-      description: 'Date user was created',
+      description: 'Date document was created',
     },
     updatedAt: {
       type: GraphQLDate,
-      description: 'Date user was last updated',
+      description: 'Date document was last updated',
     },
   }),
 });

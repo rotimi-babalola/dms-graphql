@@ -9,8 +9,10 @@ import {
 
 import UserType from './types/user';
 import DocumentType from './types/document';
-import User from '../models/user.model';
-import Document from '../models/document.model';
+import AddUserMutation from './mutations/add-user';
+import AddDocumentMutation from './mutations/add-document';
+import UserResolver from '../resolvers/user-resolver';
+import DocumentResolver from '../resolvers/document-resolver';
 
 const RootQueryType = new GraphQLObjectType({
   name: 'RootQueryType',
@@ -26,17 +28,12 @@ const RootQueryType = new GraphQLObjectType({
         },
       },
       resolve: (obj, { id }) => {
-        const userData = new Promise((resolve, reject) => {
-          if (id) {
-            User.findById(id, (error, user) => {
-              error ? reject(error) : resolve([user]);
-            });
-          } else {
-            User.find({}, (error, users) => {
-              error ? reject(error) : resolve(users);
-            });
-          }
-        });
+        let userData;
+        if (id) {
+          userData = UserResolver.getById(id);
+        } else {
+          userData = UserResolver.get();
+        }
         return userData;
       },
     },
@@ -50,26 +47,29 @@ const RootQueryType = new GraphQLObjectType({
         },
       },
       resolve: (obj, { id }) => {
-        const docData = new Promise((resolve, reject) => {
-          if (id) {
-            Document.findById(id, (error, document) => {
-              error ? reject(error) : resolve([document]);
-            });
-          } else {
-            Document.find({}, (error, documents) => {
-              error ? reject(error) : resolve(documents);
-            });
-          }
-        });
+        let docData;
+        if (id) {
+          docData = DocumentResolver.getById(id);
+        } else {
+          docData = DocumentResolver.get();
+        }
         return docData;
       },
     },
   }),
 });
 
+const RootMutationType = new GraphQLObjectType({
+  name: 'RootMutationType',
+  fields: () => ({
+    AddUser: AddUserMutation,
+    AddDocument: AddDocumentMutation,
+  }),
+});
 
 const dmsSchema = new GraphQLSchema({
   query: RootQueryType,
+  mutation: RootMutationType,
 });
 
 export default dmsSchema;
