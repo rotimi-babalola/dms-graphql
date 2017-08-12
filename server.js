@@ -21,10 +21,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 mongoose.connect('mongodb://127.0.0.1/dms', { useMongoClient: true });
 
-// Point static path to dist
-app.use(express.static(path.join(__dirname, 'dist')));
-
-
 const db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error...'));
