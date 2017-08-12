@@ -36,5 +36,5 @@ db.once('open', () => {
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log(`Server listening on PORT ${PORT}`);
+  console.log(`GraphQL Server listening on PORT ${PORT}`);
 });
