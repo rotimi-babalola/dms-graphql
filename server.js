@@ -10,10 +10,10 @@ const app = express();
 /* eslint no-console: 0 */
 /* eslint no-unused-vars: 0 */
 
-app.use('/graphql', graphqlHTTP(req => ({
+app.use('/graphql', graphqlHTTP({
   schema: dmsSchema,
   graphiql: true,
-})));
+}));
 
 // Parsers for POST data
 app.use(bodyParser.json());
