@@ -26,11 +26,11 @@ export default new GraphQLObjectType({
     },
     lastName: {
       type: new GraphQLNonNull(GraphQLString),
-      description: 'First name of user',
+      description: 'Last name of user',
     },
     email: {
       type: new GraphQLNonNull(GraphQLString),
-      description: 'First name of user',
+      description: 'User\'s email',
     },
     isAdmin: {
       type: new GraphQLNonNull(GraphQLBoolean),
