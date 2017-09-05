@@ -6,9 +6,9 @@ const DocumentResolver = {
   create: (document) => {
     const newDocument = new Document(document);
     return new Promise((resolve, reject) => {
-      newDocument.save((error) => {
+      newDocument.save((error, createdDocument) => {
         if (error) reject(error);
-        else resolve(newDocument);
+        else resolve(createdDocument);
       });
     });
   },

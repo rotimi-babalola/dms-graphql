@@ -6,9 +6,9 @@ const UserResolver = {
   create: (user) => {
     const newUser = new User(user);
     return new Promise((resolve, reject) => {
-      newUser.save((error) => {
+      newUser.save((error, createdUser) => {
         if (error) reject(error);
-        else resolve(newUser);
+        else resolve(createdUser);
       });
     });
   },

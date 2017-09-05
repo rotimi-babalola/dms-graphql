@@ -1,4 +1,7 @@
 import mongoose from 'mongoose';
+import User from './user.model';
+
+/* eslint func-names: 0 */
 
 const Schema = mongoose.Schema;
 
@@ -19,11 +22,22 @@ const DocumentSchema = new Schema({
   },
   owner: {
     type: Schema.Types.ObjectId,
-    ref: 'User',
     required: true,
   },
 }, {
   timestamps: true,
+});
+
+DocumentSchema.pre('save', function (next) {
+  const self = this;
+  User.findOne({ _id: self.owner }, (error, existUser) => {
+    if (error) {
+      return next(Error(error));
+    } else if (!existUser) {
+      return next(Error('Owner does not exist'));
+    }
+    next();
+  });
 });
 
 const Document = mongoose.model('Document', DocumentSchema);
